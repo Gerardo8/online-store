@@ -33,7 +33,7 @@ class ServerApplication(
 
         this.logger.info(user.toString())
 
-//        this.logger.info(this.userService.findByUsername("Gerardo8").toString())
+        this.logger.info(this.userService.findByUsername("Gerardo8").toString())
     }
 }
 

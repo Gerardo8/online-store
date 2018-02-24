@@ -4,7 +4,7 @@ import com.example.server.GenericCRUD
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 
-abstract class GenericRepository<T, in ID>(private val targetClass: Class<T>) : GenericCRUD<T, ID> {
+abstract class GenericRepository<T, in ID>(val targetClass: Class<T>) : GenericCRUD<T, ID> {
 
     @PersistenceContext
     protected lateinit var entityManager: EntityManager
@@ -55,8 +55,6 @@ abstract class GenericRepository<T, in ID>(private val targetClass: Class<T>) : 
     override fun existById(id: ID) = this.entityManager.find(this.targetClass, id) != null
 
     fun createCriteriaQuery() = this.entityManager.criteriaBuilder.createQuery(this.targetClass)
-
-    fun createRoot() = this.createCriteriaQuery().from(this.targetClass)
 
     fun createBuilder() = this.entityManager.criteriaBuilder
 }

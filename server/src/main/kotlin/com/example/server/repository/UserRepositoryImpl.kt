@@ -9,19 +9,19 @@ class UserRepositoryImpl : UserRepository, GenericRepository<User, Long>(User::c
 
     override fun findByUsername(username: String): User? {
         val criteria = this.createCriteriaQuery()
-        val root = this.createRoot()
+        val root = criteria.from(this.targetClass)
         val builder = this.createBuilder()
         criteria.select(root)
-        criteria.where(builder.equal(root.get(User_.username), username))
+        criteria.where(builder.equal(root.get<User>("username"), username))
         return this.entityManager.createQuery(criteria).singleResult
     }
 
-    override fun findByEmail(username: String): User? {
+    override fun findByEmail(email: String): User? {
         val criteria = this.createCriteriaQuery()
-        val root = this.createRoot()
+        val root = criteria.from(this.targetClass)
         val builder = this.createBuilder()
         criteria.select(root)
-        criteria.where(builder.equal(root.get(User_.email), username))
+        criteria.where(builder.equal(root.get(User_.email), email))
         return this.entityManager.createQuery(criteria).singleResult
     }
 }

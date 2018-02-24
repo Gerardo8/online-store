@@ -1,41 +1,49 @@
 package com.example.server.domain
 
-import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 import javax.validation.constraints.Email
+import javax.validation.constraints.NotEmpty
 
 @Entity
+@Table(name = "USERS")
 data class User(
 
+        @NotEmpty(message = "First name is required.")
         @Column(length = 30, unique = true, nullable = false)
-        val username: String,
+        val username: String = "",
 
-        @Email
+        @Email(message = "Please provide a valid email address.")
+        @NotEmpty(message = "Email is required.")
         @Column(length = 30, unique = true, nullable = false)
-        val email: String,
+        val email: String = "",
 
+        @NotEmpty(message = "Password is required.")
         @Column(length = 255, nullable = false)
-        val password: String,
+        @JsonIgnore
+        val password: String = "",
 
+        @NotEmpty(message = "First name is required.")
         @Column(length = 20, nullable = false)
-        val firstName: String,
+        val firstName: String = "",
 
+        @NotEmpty(message = "Last name is required.")
         @Column(length = 20, nullable = false)
-        val lastName: String,
+        val lastName: String = "",
 
         @Column(nullable = false)
         val enabled: Boolean = true,
 
-        @ManyToMany
+        @ManyToMany(fetch = FetchType.EAGER)
         @JoinTable(name = "USER_AUTHORITY",
                 joinColumns = [(JoinColumn(name = "USER_ID"))],
                 inverseJoinColumns = [(JoinColumn(name = "AUTHORITY_ID"))]
         )
-        @Column(nullable = false)
-        val authorities: Set<Authority>,
+        @JsonIgnore
+        val authorities: Set<Authority> = hashSetOf(),
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @get:JsonProperty("_id")
+        @JsonIgnore
         val id: Long? = null
 )

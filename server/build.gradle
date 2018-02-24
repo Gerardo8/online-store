@@ -61,4 +61,7 @@ dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
 	testCompile('org.springframework.security:spring-security-test')
+	//provided('org.hibernate:hibernate-jpamodelgen:5.2.13.Final')
+	provided group: 'org.hibernate', name: 'hibernate-jpamodelgen', version: '5.2.13.Final'
+
 }
