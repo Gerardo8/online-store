@@ -14,7 +14,7 @@ class UserDetailsServiceImpl(private val userRepository: UserRepository): UserDe
     override fun loadUserByUsername(username: String): UserDetails {
         val user = this.userRepository.findByUsername(username) ?:
                     this.userRepository.findByEmail(username) ?:
-                    throw UsernameNotFoundException("${username.toUpperCase()} NOT FOUND")
+                    throw UsernameNotFoundException("$username NOT FOUND")
 
         return  CustomUserDetails(user)
     }

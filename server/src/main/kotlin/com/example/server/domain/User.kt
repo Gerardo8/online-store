@@ -35,15 +35,11 @@ data class User(
         val enabled: Boolean = true,
 
         @ManyToMany(fetch = FetchType.EAGER)
-        @JoinTable(name = "USER_AUTHORITY",
+        @JoinTable(name = "USERS_AUTHORITIES",
                 joinColumns = [(JoinColumn(name = "USER_ID"))],
                 inverseJoinColumns = [(JoinColumn(name = "AUTHORITY_ID"))]
         )
         @JsonIgnore
-        val authorities: Set<Authority> = hashSetOf(),
+        val authorities: Set<Authority> = hashSetOf()
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @JsonIgnore
-        val id: Long? = null
-)
+): BaseEntity<Long>()

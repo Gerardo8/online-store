@@ -1,32 +1,30 @@
 package com.example.server.domain
 
-import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
+@Table(name = "ITEMS")
 data class Item(
 
-        @Column(nullable = false, length = 30)
-        var name: String = "",
+        @Column(nullable = false, length = 50)
+        val name: String = "",
 
         @Column(nullable = false)
         var price: Float = 0.00F,
 
+        @Column(length = 50)
         var description: String = "",
 
-        @Column(nullable = false)
+        @Column(nullable = false, length = 30)
         var model: String = "",
-//       brand, department
+
+        @ManyToOne
+        val brand: Brand? = null,
+
+        @ManyToOne
+        val department: Department? = null,
 
         @Enumerated(EnumType.STRING)
-        var color: Color = Color.BLUE,
+        var color: Color = Color.BLUE
 
-        @Column(nullable = false)
-        val registerDate: LocalDateTime = LocalDateTime.now(),
-
-        val lastUpdate: LocalDateTime? = null,
-
-        @Id
-        @GeneratedValue
-        val id: Long? = null
-)
+): BaseEntity<Long>()

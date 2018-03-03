@@ -5,8 +5,6 @@ import com.example.server.domain.User
 import com.example.server.repository.AuthorityRepository
 import com.example.server.service.UserService
 import org.slf4j.Logger
-import org.slf4j.LoggerFactory
-import org.springframework.beans.factory.InjectionPoint
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -24,7 +22,7 @@ class ServerApplication(
 
     override fun run(args: ApplicationArguments?) {
         val authorities = hashSetOf(Authority(name = "ROLE_USER"), Authority(name = "ROLE_ADMIN"))
-
+//        val authorities = this.authorityRepository.findAll().toMutableSet()
         this.authorityRepository.saveAll(authorities)
         this.logger.info(authorities.toString())
 
@@ -33,7 +31,6 @@ class ServerApplication(
 
         this.logger.info(user.toString())
 
-        this.logger.info(this.userService.findByUsername("Gerardo8").toString())
     }
 }
 

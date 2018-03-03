@@ -7,7 +7,6 @@ import javax.persistence.*
 @Immutable
 @Table(name = "AUTHORITIES")
 data class Authority(
-        @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Short? = null,
-        var name: String = ""
-)
+        @Column(nullable = false, length = 30, unique = true, updatable = false)
+        val name: String = ""
+): BaseEntity<Short>()

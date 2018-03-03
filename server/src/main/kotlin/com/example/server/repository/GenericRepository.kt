@@ -1,13 +1,19 @@
 package com.example.server.repository
 
 import com.example.server.GenericCRUD
+import org.slf4j.Logger
+import org.springframework.beans.factory.annotation.Autowired
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
+import javax.persistence.metamodel.SingularAttribute
 
 abstract class GenericRepository<T, in ID>(val targetClass: Class<T>) : GenericCRUD<T, ID> {
 
     @PersistenceContext
     protected lateinit var entityManager: EntityManager
+
+    @Autowired
+    private lateinit var logger: Logger
 
     override fun findById(id: ID): T = this.entityManager.find(this.targetClass, id) as T
 
@@ -48,6 +54,25 @@ abstract class GenericRepository<T, in ID>(val targetClass: Class<T>) : GenericC
         val entities = ArrayList<T>()
         ids.mapTo(entities) { this.findById(it) }
         return entities
+    }
+
+    fun <P>findByUniqueRootParam(attribute: SingularAttribute<T, P>, value: Any) : T? {
+        val criteria = this.createCriteriaQuery()
+        val root = criteria.from(this.targetClass)
+        val builder = this.createBuilder()
+
+        criteria.select(root)
+        criteria.where(builder.equal(root.get(attribute), value))
+
+        var entity: T? = null
+
+        try {
+            entity = this.entityManager.createQuery(criteria)?.singleResult
+            this.logger.info(entity.toString())
+        } catch (e: Exception) {
+            this.logger.error("$value NOT FOUND")
+        }
+        return entity
     }
 
     override fun count() = this.entityManager.createQuery(this.createCriteriaQuery()).maxResults
