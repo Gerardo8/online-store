@@ -42,4 +42,4 @@ data class User(
         @JsonIgnore
         val authorities: Set<Authority> = hashSetOf()
 
-): BaseEntity<Long>()
+) : BaseEntity<Long>()

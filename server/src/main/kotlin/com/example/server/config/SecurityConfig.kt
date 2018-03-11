@@ -11,9 +11,10 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository
 
 @Configuration
 @EnableWebSecurity
-class SecurityConfig: WebSecurityConfigurerAdapter() {
+class SecurityConfig : WebSecurityConfigurerAdapter() {
 
     override fun configure(http: HttpSecurity) {
+
         http.authorizeRequests()
                 .antMatchers("/login").permitAll()
                 .anyRequest().authenticated()

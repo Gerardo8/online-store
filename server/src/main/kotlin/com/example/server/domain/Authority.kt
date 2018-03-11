@@ -9,4 +9,4 @@ import javax.persistence.*
 data class Authority(
         @Column(nullable = false, length = 30, unique = true, updatable = false)
         val name: String = ""
-): BaseEntity<Short>()
+) : BaseEntity<Short>()

@@ -9,13 +9,12 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 @Transactional
-class UserDetailsServiceImpl(private val userRepository: UserRepository): UserDetailsService {
+class UserDetailsServiceImpl(private val userRepository: UserRepository) : UserDetailsService {
 
     override fun loadUserByUsername(username: String): UserDetails {
-        val user = this.userRepository.findByUsername(username) ?:
-                    this.userRepository.findByEmail(username) ?:
-                    throw UsernameNotFoundException("$username NOT FOUND")
+        val user = this.userRepository.findByUsername(username) ?: this.userRepository.findByEmail(username)
+        ?: throw UsernameNotFoundException("$username NOT FOUND")
 
-        return  CustomUserDetails(user)
+        return CustomUserDetails(user)
     }
 }

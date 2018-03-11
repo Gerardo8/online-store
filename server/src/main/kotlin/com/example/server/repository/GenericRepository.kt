@@ -41,9 +41,9 @@ abstract class GenericRepository<T, in ID>(val targetClass: Class<T>) : GenericC
     }
 
     override fun deleteAll(entities: Iterable<T>) {
-       for (entity in entities) {
-           this.entityManager.remove(entity)
-       }
+        for (entity in entities) {
+            this.entityManager.remove(entity)
+        }
     }
 
     override fun findAll(): Iterable<T> = this.entityManager
@@ -56,7 +56,7 @@ abstract class GenericRepository<T, in ID>(val targetClass: Class<T>) : GenericC
         return entities
     }
 
-    fun <P>findByUniqueRootParam(attribute: SingularAttribute<T, P>, value: Any) : T? {
+    fun <P> findByUniqueRootParam(attribute: SingularAttribute<T, P>, value: Any): T? {
         val criteria = this.createCriteriaQuery()
         val root = criteria.from(this.targetClass)
         val builder = this.createBuilder()

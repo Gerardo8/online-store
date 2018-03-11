@@ -7,4 +7,4 @@ import javax.persistence.*
 data class Brand(
         @Column(nullable = false, length = 30, unique = true)
         val name: String = ""
-): BaseEntity<Short>()
+) : BaseEntity<Short>()

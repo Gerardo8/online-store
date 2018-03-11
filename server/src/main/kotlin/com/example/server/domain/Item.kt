@@ -27,4 +27,4 @@ data class Item(
         @Enumerated(EnumType.STRING)
         var color: Color = Color.BLUE
 
-): BaseEntity<Long>()
+) : BaseEntity<Long>()

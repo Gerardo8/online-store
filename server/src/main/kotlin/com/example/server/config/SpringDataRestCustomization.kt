@@ -7,7 +7,7 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapt
 import org.springframework.web.cors.CorsConfiguration
 
 @Configuration
-class SpringDataRestCustomization(private val webConfig: WebConfig): RepositoryRestConfigurerAdapter() {
+class SpringDataRestCustomization(private val webConfig: WebConfig) : RepositoryRestConfigurerAdapter() {
 
     override fun configureRepositoryRestConfiguration(config: RepositoryRestConfiguration) {
         config.setBasePath(VERSION)
